@@ -1,3 +1,4 @@
+import numpy
 import numpy as np
 
 # converting to a layer with 4 input and 3 neuron
@@ -5,9 +6,13 @@ inputs = [[1.2, 2.1, 3.4, 1.2],
           [1.2, 2.1, 3.4, 1.2],
           [1.2, 2.1, 3.4, 1.2]]
 
+print(numpy.shape(inputs))
 weights = [[4.1, -4.5, 3.1, 2.3],
            [-4.1, 4.5, 2.1, 2.3],
            [4.1, 4.5, 3.1, -2.3]]
+print(numpy.shape(weights))
+
+
 biases = [1, 2, 3]
 
 weights2 = [[4.1, -4.5, 3.1],
