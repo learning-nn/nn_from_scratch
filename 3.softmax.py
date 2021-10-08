@@ -1,19 +1,14 @@
 import math
+import numpy as np
+import nnfs
+
+nnfs.init()
 
 layer_output = [4.8, 1.21, 2.385]
 
-E = math.e
+exp_values = np.exp(layer_output)
 
-exp_values = []
-
-for output in layer_output:
-    exp_values.append(E**output)
-
-normalized_values = []
-normalized_base = sum(exp_values)
-
-for value in exp_values:
-    normalized_values.append(value / normalized_base)
+normalized_values = exp_values / np.sum(exp_values)
 
 print(normalized_values)
 print(sum(normalized_values))
