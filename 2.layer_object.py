@@ -4,9 +4,6 @@ from nnfs.datasets import spiral_data
 
 nnfs.init()
 
-X, y = spiral_data(100, 3)
-
-
 class LayerDense:
 
     def __init__(self, n_inputs, n_neurons):
@@ -24,10 +21,24 @@ class ActivationRelu:
         self.output = np.maximum(0, inputs)
 
 
-layer1 = LayerDense(2, 5)
+class ActivationSoftmax:
+    def forward(self, inputs):
+        exp_values = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
+        probabilities = exp_values / np.sum(exp_values, axis=1, keepdims=True)
+        self.output = probabilities
+
+
+X, y = spiral_data(100, 3)
+
+dense1 = LayerDense(2, 3)
 activation1 = ActivationRelu()
+dense2 = LayerDense(3, 3)
+activation2 = ActivationSoftmax()
 
-layer1.forward(X)
-activation1.forward(layer1.output)
-print(activation1.output)
+dense1.forward(X)
+activation1.forward(dense1.output)
 
+dense2.forward(activation1.output)
+activation2.forward(dense2.output)
+
+print(activation2.output[:5])
