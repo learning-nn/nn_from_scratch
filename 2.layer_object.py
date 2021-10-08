@@ -1,8 +1,10 @@
 import numpy as np
+import nnfs
+from nnfs.datasets import spiral_data
 
-X = [[1, 2, 3, 2.5],
-     [2.0, 5.0, -1.0, 2.0],
-     [-1.5, 2.7, 3.3, -0.8]]
+nnfs.init()
+
+X, y = spiral_data(100, 3)
 
 
 class LayerDense:
@@ -17,12 +19,15 @@ class LayerDense:
         pass
 
 
-layer1 = LayerDense(4,5)
-layer2 = LayerDense(5, 2)
+class ActivationRelu:
+    def forward(self, inputs):
+        self.output = np.maximum(0, inputs)
+
+
+layer1 = LayerDense(2, 5)
+activation1 = ActivationRelu()
 
 layer1.forward(X)
-print(layer1.output)
-
-layer2.forward(layer1.output)
-print(layer2.output)
+activation1.forward(layer1.output)
+print(activation1.output)
 
